@@ -81,6 +81,22 @@ function showCountries(list) {
         if (country.population) {
             population = country.population.toLocaleString();
         }
+    //build the myth and fact boxes for this country, if we have any
+    let mythHtml = "";
+    if (typeof myths !== "underfined" && myths[country.code]) {
+        myths[country.code].forEach(function (item) {
+            mythHtml +=
+                "<div class='myth'>" +
+                "<p><strong>Myth:</strong> " + item.myth + "</p>" +
+                "<p><strong>Fact:</strong> " + item.fact + "</p>" +
+                "</div>";
+        });
+    }
+
+    let factHtml = "";
+    if (typeof facts !== "underfined" && facts[country.code]) {
+        factHtml = "<p class='fact'><strong>Did you know?</strong> " + facts[country.code] + "</p>";
+    }
 
         results.innerHTML += 
         "<div class='card'>" +
@@ -89,6 +105,8 @@ function showCountries(list) {
         "<p>Capital: " + country.capital + "</p>" +
         "<p>Population: " + population + "</p>" +
         "<p>Region: " + country.region + "</p>" +
+        factHtml +
+        mythHtml +
         "</div>";
     });
 }

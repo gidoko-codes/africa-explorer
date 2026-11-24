@@ -45,3 +45,15 @@ input, select {
     margin: 4px 0;
     font-size: 14px;
 }
+
+.myth {
+    background-color: #fff3b8;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-top: 10px;
+}
+
+.fact {
+    font-style: italic;
+    margin-top: 10px;
+}
