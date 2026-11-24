@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff8dc;
+    color: #2d2a20;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 5px;
+}
+
+input, select {
+    padding: 10px;
+    margin: 5px 5px 5px 0;
+    border: 1px solid #d8cc94;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #eadfae;
+    border-radius: 10px;
+    padding: 1px solid #ddd;
+}
+
+.card img {
+    width: 80px;
+    border: 1px solid #ddd;
+}
+
+.card h3 {
+    margin: 10px 0 5px 0;
+}
+
+.card p {
+    margin: 4px 0;
+    font-size: 14px;
+}

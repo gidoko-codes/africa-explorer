@@ -83,7 +83,7 @@ function showCountries(list) {
         }
 
         results.innerHTML += 
-        "<div>" +
+        "<div class='card'>" +
         "<img src='https://flagcdn.com/w80/" + country.code.toLowerCase() + ".png' alt='Flag of " + country.name + "'>" +
         "<h3>" + country.name + "</h3>" +
         "<p>Capital: " + country.capital + "</p>" +
