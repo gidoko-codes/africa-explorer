@@ -1,0 +1,92 @@
+// The 54 African countries grouped by regions (UN geoscheme)
+const regions = {
+  "North Africa": ["DZ", "EG", "LY", "MA", "SD", "TN"],
+  "West Africa": ["BJ", "BF", "CV", "CI", "GM", "GH", "GN", "GW", "LR", "ML", "MR", "NE", "NG", "SN", "SL", "TG"],
+  "East Africa": ["BI", "KM", "DJ", "ER", "ET", "KE", "MG", "MW", "MU", "MZ", "RW", "SC", "SO", "SS", "TZ", "UG", "ZM", "ZW"],
+  "Central Africa": ["AO", "CM", "CF", "TD", "CG", "CD", "GQ", "GA", "ST"],
+  "Southern Africa": ["BW", "SZ", "LS", "NA", "ZA"]  
+};
+
+let allCountries = [];
+
+function getAllCodes() {
+    let codes = [];
+    for (const regionName in regions) {
+        codes =codes.concat(regions[regionName]);
+    }
+    return codes;
+}
+
+function findRegion(code) {
+    for (const regionName in regions) {
+        if (regions[regionName].includes(code)) {
+            return regionName;
+        }
+    }
+    return "Unknown";
+}
+
+async function loadCountries() {
+    const codes = getAllCodes();
+    const countryURL = "https://api.worldbank.org/v2/country?format=json&per_page=300";
+    const populationUrl = "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&mrnev=1&per_page=500";
+
+    try {
+        const countryResponse = await fetch(countryURL);
+        const countryData = await countryResponse.json();
+        const populationResponse = await fetch(populationUrl);
+        const populationData = await populationResponse.json();
+
+        // each answer is [pageInfo, listPfItems], so the list is at position 1
+        const populations = {};
+        populationData[1].forEach(function (item) {
+            populations[item.country.id] = item.value;
+        });
+
+        allCountries = countryData[1].filter(function (item) {
+            return codes.includes(item.iso2Code);
+        }).map(function (item) {
+            return {
+                code: item.iso2Code,
+                name: item.name,
+                capital: item.capitalCity,
+                income: item.incomeLevel.value,
+                region: findRegion(item.iso2Code),
+                population: populations[item.iso2Code]
+            };
+        });
+
+        allCountries.sort(function (a, b) {
+            return a.name.localeCompare(b.name);
+        });
+
+        console.log("Countries loaded:", allCountries.length);
+        showCountries(allCountries);
+    } catch (error) {
+        console.log("Error:", error);
+        document.getElementById("results").innerHTML = "Could not load countries. Please try again.";    
+    }
+}
+
+function showCountries(list) {
+    const results = document.getElementById("results");
+    results.innerHTML = "";
+
+    list.forEach(function (country){
+        let population = "No data";
+        if (country.population) {
+            population = country.population.toLocaleString();
+        }
+
+        results.innerHTML += 
+        "<div>" +
+        "<img src='https://flagcdn.com/w80/" + country.code.toLowerCase() + ".png' alt='Flag of " + country.name + "'>" +
+        "<h3>" + country.name + "</h3>" +
+        "<p>Capital: " + country.capital + "</p>" +
+        "<p>Population: " + population + "</p>" +
+        "<p>Region: " + country.region + "</p>" +
+        "</div>";
+    });
+}
+
+loadCountries();
