@@ -61,7 +61,7 @@ async function loadCountries() {
         });
 
         console.log("Countries loaded:", allCountries.length);
-        showCountries(allCountries);
+        applyFilters();
     } catch (error) {
         console.log("Error:", error);
         document.getElementById("results").innerHTML = "Could not load countries. Please try again.";    
@@ -71,6 +71,10 @@ async function loadCountries() {
 function showCountries(list) {
     const results = document.getElementById("results");
     results.innerHTML = "";
+    if (list.length === 0) {
+        results.innerHTML = "<p>No country matches your search.</p>";
+        return;
+    }
 
     list.forEach(function (country){
         let population = "No data";
@@ -88,5 +92,34 @@ function showCountries(list) {
         "</div>";
     });
 }
+
+function applyFilters() {
+    const searchText = document.getElementById("searchBox").value.toLowerCase();
+    const region = document.getElementById("regionFilter").value;
+    const sortBy = document.getElementById("sortBy").value;
+
+    //keep only the countries that match the search and the region
+    const list = allCountries.filter(function(country){
+        const matchesSearch =
+            country.name.toLowerCase().includes(searchText) ||
+            country.capital.toLowerCase().includes(searchText);
+        const matchesRegion = region === "all" || country.region === region;
+        return matchesSearch && matchesRegion;
+    });
+
+    //sort the result
+    if (sortBy === "population-high") {
+        list.sort(function (a, b){ return (b.population || 0) - (a.population || 0); });
+    } else if (sortBy === "population-low") {
+        list.sort(function (a, b) { return (a.population || 0) - (b.population || 0); });
+    } else {
+        list.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        }
+    document.getElementById("count").innerHTML = "Showing " + list.length + " of " + allCountries.length + " countries";
+    showCountries(list);
+}
+document.getElementById("searchBox").addEventListener("input", applyFilters);
+document.getElementById("regionFilter").addEventListener("change", applyFilters);
+document.getElementById("sortBy").addEventListener("change", applyFilters);
 
 loadCountries();
