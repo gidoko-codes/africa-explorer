@@ -7,26 +7,38 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
     <h1>She is Africa Explorer</h1>
-    <p>Search any African country.</p>
-    <input type="text" id="searchBox" placeholder="Type a country name">
-    <select id="regionFilter">
-        <option value="all">All regions</option>
-        <option value="North Africa">North Africa</option>
-        <option value="West Africa">West Africa</option>
-        <option value="East Africa">East Africa</option>
-        <option value="Central Africa">Central Africa</option>
-        <option value="Southern Africa">Southern Africa</option>
-    </select>
+    <p>Search the 54 countries of Africa and learn the facts behind the stories. Inspired by the She is Africa Podcast</p>
+    </header>
+   <main>
+        <div class="filters">
+            <input type="text" id="searchBox" placeholder="Search a country or capital">
+            <select id="regionFilter">
+                <option value="all">All regions</option>
+                <option value="North Africa">North Africa</option>
+                <option value="West Africa">West Africa</option>
+                <option value="East Africa">East Africa</option>
+                <option value="Central Africa">Central Africa</option>
+                <option value="Southern Africa">Southern Africa</option>
+            </select>
+            <select id="sortBy">
+                <option value="name">Sort by name (A to Z)</option>
+                <option value="population-high">Population: high to low</option>
+                <option value="population-low">Population: low to high</option>
+            </select>
+        </div>
 
-    <select id="sortBy">
-        <option value="name">Sort by name (A to Z)</option>
-        <option value="population-high">Population: high to low</option>
-        <option value="population-low">Population: low to high</option>
-    </select>
+        <p id="count"></p>
+        <div id="results"><p class="loading">Loading countries...</p></div>
+    </main>
 
-    <p id="count"></p>
-    <div id="results"></div>
+    <footer>
+        <p>Country data from the <a href="https://data.worldbank.org" target="_blank" rel="noopener">World Bank Open Data API</a>.
+        Flags from <a href="https://flagcdn.com" target="_blank" rel="noopener">Flagcdn</a>.
+        Facts and myths researched for the She is Africa Podcast.</p>
+    </footer>
+
     <script src="facts.js"></script>
     <script src="myths.js"></script>
     <script src="app.js"></script>

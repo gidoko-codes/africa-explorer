@@ -1,59 +1,127 @@
+* { box-sizing: border-box; }
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff8dc;
-    color: #2d2a20;
-    margin: 0;
-    padding: 20px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #fff8dc;
+  color: #2d2a20;
+  margin: 0;
+  line-height: 1.6;
 }
 
-h1 {
-    margin-bottom: 5px;
+header, main, footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
+header { padding-top: 40px; padding-bottom: 8px; }
+h1 { margin: 0 0 8px; font-size: 2.2rem; }
+header p { margin: 0; color: #6b6450; max-width: 640px; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 input, select {
-    padding: 10px;
-    margin: 5px 5px 5px 0;
-    border: 1px solid #d8cc94;
-    border-radius: 6px;
-    font-size: 16px;
+  padding: 12px 14px;
+  border: 1px solid #d8cc94;
+  border-radius: 8px;
+  font-size: 16px;
+  background: white;
 }
+.filters input { flex: 2 1 260px; }
+.filters select { flex: 1 1 180px; }
+
+#count { color: #6b6450; margin: 20px 0 0; }
 
 #results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px;
+  margin-top: 16px;
 }
 
-.card {
-    background-color: white;
-    border: 1px solid #eadfae;
-    border-radius: 10px;
-    padding: 1px solid #ddd;
+/* Loading indicator */
+.loading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6b6450;
 }
+.loading::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  border: 3px solid #eadfae;
+  border-top-color: #d99a00;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Country cards */
+.card {
+  background: white;
+  border: 1px solid #eadfae;
+  border-top: 6px solid #d8cc94;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 2px 6px rgba(120, 100, 20, 0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(120, 100, 20, 0.15);
+}
+
+.north-africa { border-top-color: #d98e04; }
+.west-africa { border-top-color: #2e8b57; }
+.east-africa { border-top-color: #c0392b; }
+.central-africa { border-top-color: #2f6db5; }
+.southern-africa { border-top-color: #7d4fb3; }
 
 .card img {
-    width: 80px;
-    border: 1px solid #ddd;
+  width: 72px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.card h3 { margin: 14px 0 6px; font-size: 1.25rem; }
+.card p { margin: 6px 0; font-size: 0.95rem; }
+
+.tag {
+  display: inline-block;
+  background: #f6e7a1;
+  color: #5c4d00;
+  font-size: 0.78rem;
+  font-weight: bold;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
 }
 
-.card h3 {
-    margin: 10px 0 5px 0;
+/* Facts and myths */
+.fact {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed #e3d79a;
+  color: #4a4636;
 }
-
-.card p {
-    margin: 4px 0;
-    font-size: 14px;
-}
+.fact strong { color: #8a6500; }
 
 .myth {
-    background-color: #fff3b8;
-    border-radius: 6px;
-    padding: 8px 10px;
-    margin-top: 10px;
+  background: #fff3b8;
+  border-left: 5px solid #d99a00;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 14px;
 }
+.myth p { margin: 6px 0; }
 
-.fact {
-    font-style: italic;
-    margin-top: 10px;
+footer { padding-top: 40px; padding-bottom: 40px; font-size: 0.85rem; color: #6b6450; }
+footer a { color: inherit; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  header, main, footer { padding: 0 16px; }
+  h1 { font-size: 1.7rem; }
+  #results { grid-template-columns: 1fr; gap: 16px; }
+  .filters input, .filters select { flex: 1 1 100%; }
 }

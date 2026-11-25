@@ -83,7 +83,7 @@ function showCountries(list) {
         }
     //build the myth and fact boxes for this country, if we have any
     let mythHtml = "";
-    if (typeof myths !== "underfined" && myths[country.code]) {
+    if (typeof myths !== "undefined" && myths[country.code]) {
         myths[country.code].forEach(function (item) {
             mythHtml +=
                 "<div class='myth'>" +
@@ -94,17 +94,19 @@ function showCountries(list) {
     }
 
     let factHtml = "";
-    if (typeof facts !== "underfined" && facts[country.code]) {
+    if (typeof facts !== "undefined" && facts[country.code]) {
         factHtml = "<p class='fact'><strong>Did you know?</strong> " + facts[country.code] + "</p>";
     }
 
+    const regionClass = country.region.toLowerCase().replace(" ","-");
+
         results.innerHTML += 
-        "<div class='card'>" +
+        "<div class='card " + regionClass + "'>" +
         "<img src='https://flagcdn.com/w80/" + country.code.toLowerCase() + ".png' alt='Flag of " + country.name + "'>" +
         "<h3>" + country.name + "</h3>" +
-        "<p>Capital: " + country.capital + "</p>" +
-        "<p>Population: " + population + "</p>" +
-        "<p>Region: " + country.region + "</p>" +
+        "<span class='tag'>" + country.region + "</span>" +
+        "<p><strong>Capital:</strong> " + country.capital + "</p>" +
+        "<p><strong>Population</strong>: " + population + "</p>" +
         factHtml +
         mythHtml +
         "</div>";
