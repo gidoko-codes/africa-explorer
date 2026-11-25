@@ -7,7 +7,7 @@ capital, population and region, learn a "Did you know?" fact, and read the myths
 the podcast wants to correct.
 
 - **Live site:** https://www.graceidoko.tech
-- **Demo video:** ADD_YOUR_VIDEO_LINK_HERE
+- **Demo video:** https://drive.google.com/file/d/1YbqbgZBukZ8lfqFCZhHqpPykUo0MGtwX/view?usp=sharing
 - **Podcast:** https://www.youtube.com/@sheisafricapodcast
 - **Author:** Grace Idoko ([gidoko-codes](https://github.com/gidoko-codes))
 
